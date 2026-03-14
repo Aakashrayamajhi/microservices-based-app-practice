@@ -1,11 +1,7 @@
 // 127.0.0.1:6379
 
-import Redis from "ioredis"
+import redis from "../config/redis.config.js";
 
-const redis = new Redis({
-    host:"127.0.0.1",
-    port:6379
-})
 
 const limit = 10;
 const window = 60;

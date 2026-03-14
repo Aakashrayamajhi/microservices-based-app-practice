@@ -2,10 +2,17 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import * as authRepository from "./auth.repository.js"
 import dotenv from "dotenv"
+import path from "path"
+import { fileURLToPath } from "url"
 
-dotenv.config()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const JWT_SECRET = process.env.JWT_SECRET
+dotenv.config({
+  path: path.join(__dirname, "../../.env")
+})
+
+const JWT_SECRET = process.env.JWT_SECRET 
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d"
 
 export const registerUser = async ({ name, email, password }) => {
