@@ -1,19 +1,40 @@
 import * as authService from "./auth.service.js"
 
+
 export const register = async (req, res) => {
   try {
-    const user = await authService.registerUser(req.body)
-    res.status(201).json({ message: "User registered", data: user })
+    const { name, email, password } = req.body
+    const user = await authService.registerUser({ name, email, password })
+    res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      data: user
+    })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    console.error("Register error:", error)
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
   }
 }
 
+
+
 export const login = async (req, res) => {
   try {
-    const result = await authService.loginUser(req.body)
-    res.json({ message: "Login successful", data: result })
+    const { email, password } = req.body
+    const result = await authService.loginUser({ email, password })
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+      data: result
+    })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    console.error("Login error:", error)
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
   }
 }
