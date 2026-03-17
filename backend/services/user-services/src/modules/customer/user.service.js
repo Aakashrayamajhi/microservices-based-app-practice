@@ -1,10 +1,6 @@
 // user.service.js
 import * as userRepository from "./user.repository.js"
 
-/* =========================
-   USER-SERVICE BUSINESS LOGIC
-   (No authentication here)
-========================= */
 
 /* Create a user (used by auth-service) */
 export const createUser = async ({ name, email, password }) => {
@@ -19,7 +15,6 @@ export const createUser = async ({ name, email, password }) => {
   return user
 }
 
-/* Get user by email (used by auth-service) */
 export const findUserByEmail = async (email) => {
   return await userRepository.findByEmail(email)
 }

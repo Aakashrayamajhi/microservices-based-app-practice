@@ -20,6 +20,11 @@ const sellerSchema = new mongoose.Schema(
         lowercase: true
     },
 
+    password : {
+        type : String,
+        required : true,
+    },
+
     storeName: {
         type: String,
         required: true
