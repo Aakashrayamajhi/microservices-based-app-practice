@@ -1,52 +1,32 @@
-import * as sellerRepository from "./seller.repository.js"
+import * as sellerRepository from "./seller.repository.js";
 
-export const createSeller = async ({ fullName,
-    phoneNumber,
-    password,
-    email,
-    storeName,
-    storeAddress,
-    storeDescription,
-    documents,
-    bankDetails }) => {
+export const createSeller = async (data) => {
+  const existingSeller = await sellerRepository.findByEmail(data.email);
+  if (existingSeller) {
+    const error = new Error("Seller already exists");
+    error.status = 400;
+    throw error;
+  }
 
-    const existngSeller = await sellerRepository.findByEmail(email)
-    if (existngSeller) {
-        const error = new Error("Seller already exists")
-        error.status = 400
-        throw error
-    }
+  return await sellerRepository.createSeller(data);
+};
 
-    const seller = await sellerRepository.createSeller({ fullName,
-    phoneNumber,
-    password,
-    email,
-    storeName,
-    storeAddress,
-    storeDescription,
-    documents,
-    bankDetails })
-    
-    return seller
+export const findSellerByEmail = async (email) => {
+  return await sellerRepository.findByEmail(email);
+};
 
-}
+export const getSellerById = async (id) => {
+  return await sellerRepository.getSellerById(id);
+};
 
-export const findSellerByEmail = async (email)=>{
-    return await sellerRepository.findByEmail(email)
-}
+export const updateSeller = async (id, data) => {
+  return await sellerRepository.updateSeller(id, data);
+};
 
-export const getSellerById = async (id)=>{
-    return await Seller.findById(id)
-}
+export const deleteSeller = async (id) => {
+  return await sellerRepository.deleteSeller(id);
+};
 
-export const updateSeller = async (id , data)=>{
-    return await Seller.findOneAndUpdate(id, data)
-}
-
-export const deleteSeller = async (id)=>{
-    return await Seller.findByIdAndDelete(id)
-}
-
-export const getAllSeller = async ()=>{
-    return await Seller.find()
-}
+export const getAllSellers = async () => {
+  return await sellerRepository.getAllSellers();
+};

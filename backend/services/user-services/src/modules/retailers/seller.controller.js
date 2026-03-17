@@ -1,6 +1,6 @@
 import * as sellerService from "./seller.service.js";
 
-/* ------------------- Create Seller ------------------- */
+/* Create Seller */
 export const createSeller = async (req, res) => {
   try {
     const seller = await sellerService.createSeller(req.body);
@@ -11,13 +11,11 @@ export const createSeller = async (req, res) => {
   }
 };
 
-/* ------------------- Get Seller by Email ------------------- */
+/* Get Seller by Email */
 export const getSellerByEmail = async (req, res) => {
   try {
-    const { email } = req.params;
-    const seller = await sellerService.findSellerByEmail(email);
-    if (!seller)
-      return res.status(404).json({ success: false, message: "Seller not found" });
+    const seller = await sellerService.findSellerByEmail(req.params.email);
+    if (!seller) return res.status(404).json({ success: false, message: "Seller not found" });
     res.json({ success: true, seller });
   } catch (error) {
     console.error("Get seller by email error:", error.message);
@@ -25,12 +23,11 @@ export const getSellerByEmail = async (req, res) => {
   }
 };
 
-/* ------------------- Get Seller by ID ------------------- */
+/* Get Seller by ID */
 export const getSellerById = async (req, res) => {
   try {
     const seller = await sellerService.getSellerById(req.params.id);
-    if (!seller)
-      return res.status(404).json({ success: false, message: "Seller not found" });
+    if (!seller) return res.status(404).json({ success: false, message: "Seller not found" });
     res.json({ success: true, seller });
   } catch (error) {
     console.error("Get seller by ID error:", error.message);
@@ -38,7 +35,7 @@ export const getSellerById = async (req, res) => {
   }
 };
 
-/* ------------------- Get All Sellers ------------------- */
+/* Get All Sellers */
 export const getAllSellers = async (req, res) => {
   try {
     const sellers = await sellerService.getAllSellers();
@@ -49,7 +46,7 @@ export const getAllSellers = async (req, res) => {
   }
 };
 
-/* ------------------- Update Seller ------------------- */
+/* Update Seller */
 export const updateSeller = async (req, res) => {
   try {
     const seller = await sellerService.updateSeller(req.params.id, req.body);
@@ -60,7 +57,7 @@ export const updateSeller = async (req, res) => {
   }
 };
 
-/* ------------------- Delete Seller ------------------- */
+/* Delete Seller */
 export const deleteSeller = async (req, res) => {
   try {
     await sellerService.deleteSeller(req.params.id);
